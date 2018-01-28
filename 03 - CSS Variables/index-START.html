@@ -21,6 +21,22 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    /* The :root CSS pseudo-class matches the root element of a tree representing the document. In HTML, :root represents the <html> element and is identical to the selector html, except that its specificity is higher. */
+    :root{
+      --base: red;
+      --spacing: 10px;
+      --blur: 5px;
+    }
+
+    img{
+      background: var(--base);
+      padding: var(--spacing);
+      filter: blur(var(--blur));
+    }
+
+    .hl{
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -45,6 +61,17 @@
   </style>
 
   <script>
+    const inputs= document.querySelectorAll('.controls input');
+    console.log(inputs);
+
+    function handleUpdate(){
+      // The HTMLElement.dataset property allows access, both in reading and writing mode, to all the custom data attributes (data-*) set on the element, either in HTML or in the DOM.
+      const suffix= this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+    }
+
+    inputs.forEach(input=> input.addEventListener("change", handleUpdate));
+    inputs.forEach(input=> input.addEventListener("mousemove", handleUpdate));
   </script>
 
 </body>
